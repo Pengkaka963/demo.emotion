@@ -67,7 +67,6 @@
         background: black;
     }
 
-    /* 左上箭头：左 → 右上 */
     .arrow1 {
         left: 50%;
         top: 10%;
@@ -75,7 +74,6 @@
         transform: rotate(25deg);
     }
 
-    /* 左下箭头：左 → 右下 */
     .arrow2 {
         left: 50%;
         top: 50%;
@@ -83,7 +81,6 @@
         transform: rotate(-25deg);
     }
 
-    /* 箭头尖角 */
     .arrow-tip {
         width: 0;
         height: 0;
@@ -105,7 +102,6 @@
         transform: rotate(-25deg);
     }
 
-    /* 红色注意文 */
     .note {
         margin-top: 25px;
         font-size: 15px;
@@ -125,30 +121,26 @@
 
 <div class="container">
 
-  <!-- 左侧最大视频 -->
   <div class="left-video">
-    <video controls playsinline>
+    <video id="video-left" controls playsinline>
       <source src="表情検知.mp4" type="video/mp4">
     </video>
   </div>
 
-  <!-- 中间箭头区域 -->
   <div class="arrow-container">
     <div class="arrow-line arrow1"></div>
     <div class="arrow-line arrow2"></div>
-
     <div class="arrow-tip tip1"></div>
     <div class="arrow-tip tip2"></div>
   </div>
 
-  <!-- 右侧两个较小视频 -->
   <div class="right-block">
-    <video controls playsinline>
+    <video id="video-right1" controls playsinline>
       <source src="negativeを検出%20.mp4" type="video/mp4">
     </video>
     <div class="filename">negativeを検出</div>
 
-    <video controls playsinline>
+    <video id="video-right2" controls playsinline>
       <source src="positiveを検出%20.mp4" type="video/mp4">
     </video>
     <div class="filename">positiveを検出</div>
@@ -156,11 +148,32 @@
 
 </div>
 
-<!-- 底部说明文字 -->
 <div class="note">
   <span>※</span> ROS制御により <br>
   シミュレータと実機Furhatはそのまま置き換え可能（デジタルツイン）
 </div>
+
+<script>
+  // 自动把视频第一帧设置为 poster
+  function setPosterFromFirstFrame(video) {
+    const canvas = document.createElement('canvas');
+    video.addEventListener('loadeddata', () => {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      video.setAttribute('poster', canvas.toDataURL());
+    });
+  }
+
+  const videos = [
+    document.getElementById('video-left'),
+    document.getElementById('video-right1'),
+    document.getElementById('video-right2')
+  ];
+
+  videos.forEach(v => setPosterFromFirstFrame(v));
+</script>
 
 </body>
 </html>
