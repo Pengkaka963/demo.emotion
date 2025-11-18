@@ -1,1 +1,166 @@
-# demo.emotion
+# demo.emotion<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>実演デモ(表情応答)</title>
+
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        max-width: 1100px;
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .container {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .left-video {
+        flex: 1.3;
+    }
+
+    .left-video video {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .right-block {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center; /* 让文件名居中 */
+    }
+
+    .right-block video {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    /* 文件名样式 */
+    .filename {
+        text-align: center;
+        font-size: 14px;
+        margin-top: 5px;
+        color: #333;
+    }
+
+    .arrow-container {
+        position: relative;
+        flex: 0.6;
+        height: 300px;
+    }
+
+    /* 两条箭头线 */
+    .arrow-line {
+        position: absolute;
+        width: 2px;
+        background: black;
+    }
+
+    /* 左上箭头：左 → 右上 */
+    .arrow1 {
+        left: 50%;
+        top: 10%;
+        height: 40%;
+        transform: rotate(25deg);
+    }
+
+    /* 左下箭头：左 → 右下 */
+    .arrow2 {
+        left: 50%;
+        top: 50%;
+        height: 40%;
+        transform: rotate(-25deg);
+    }
+
+    /* 箭头尖角 */
+    .arrow-tip {
+        width: 0;
+        height: 0;
+        border-left: 12px solid black;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        position: absolute;
+    }
+
+    .tip1 {
+        top: 10%;
+        left: calc(50% + 80px);
+        transform: rotate(25deg);
+    }
+
+    .tip2 {
+        top: 80%;
+        left: calc(50% + 80px);
+        transform: rotate(-25deg);
+    }
+
+    /* 红色注意文 */
+    .note {
+        margin-top: 25px;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .note span {
+        color: red;
+        font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>実演デモ(表情応答)</h1>
+
+<div class="container">
+
+  <!-- 左侧最大视频 -->
+  <div class="left-video">
+    <video controls playsinline>
+      <source src="表情検知.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- 中间箭头区域 -->
+  <div class="arrow-container">
+    <div class="arrow-line arrow1"></div>
+    <div class="arrow-line arrow2"></div>
+
+    <div class="arrow-tip tip1"></div>
+    <div class="arrow-tip tip2"></div>
+  </div>
+
+  <!-- 右侧两个较小视频 -->
+  <div class="right-block">
+    <video controls playsinline>
+      <source src="negativeを検出%20.mp4" type="video/mp4">
+    </video>
+    <div class="filename">negativeを検出</div>
+
+    <video controls playsinline>
+      <source src="positiveを検出%20.mp4" type="video/mp4">
+    </video>
+    <div class="filename">positiveを検出</div>
+  </div>
+
+</div>
+
+<!-- 底部说明文字 -->
+<div class="note">
+  <span>※</span> ROS制御により <br>
+  シミュレータと実機Furhatはそのまま置き換え可能（デジタルツイン）
+</div>
+
+</body>
+</html>
